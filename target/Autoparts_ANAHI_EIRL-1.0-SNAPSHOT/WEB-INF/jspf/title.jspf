@@ -1,0 +1,2 @@
+<%-- /WEB-INF/jspf/title.jspf --%>
+${empty param.pageTitle ? 'Sistema de Inventario - AutoParts' : param.pageTitle}

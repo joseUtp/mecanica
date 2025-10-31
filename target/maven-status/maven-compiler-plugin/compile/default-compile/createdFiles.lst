@@ -1,0 +1,4 @@
+Controller\ProductoServlet.class
+com\mycompany\autoparts_anahi_eirl\resources\JakartaEE11Resource.class
+com\mycompany\autoparts_anahi_eirl\JakartaRestConfiguration.class
+Controller\ClienteServlet.class

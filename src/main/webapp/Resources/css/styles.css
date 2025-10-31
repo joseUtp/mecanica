@@ -1,0 +1,41 @@
+/* styles.css */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1; /* empuja el footer al fondo */
+}
+
+
+.section-bienvenida {
+    padding: 2rem;
+    background-color: #e1fec9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Estilos para el carrusel de logos */
+#carouselLogos .carousel-item {
+    padding: 20px 0;
+}
+/* Elimina el filtro de grises y ajusta opacidad  */
+#carouselLogos img {
+    filter: grayscale(0%) !important; /* Forzar color */
+    height: 80px;      /* Altura fija */
+    width: auto;       /* Ancho proporcional */
+    object-fit: contain; /* Evita deformaciones */
+    opacity: 1 !important; /* Máxima visibilidad */
+    transition: all 0.3s ease; /* Suavizar hover */
+}
+/* Efecto al pasar el mouse (ej: escalar ligeramente) */
+#carouselLogos img:hover {
+    transform: scale(1.1);
+}

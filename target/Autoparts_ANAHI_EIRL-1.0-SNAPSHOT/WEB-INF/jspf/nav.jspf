@@ -1,0 +1,155 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand d-flex align-items-center" href="${pageContext.request.contextPath}/index.jsp">
+            <img src="${pageContext.request.contextPath}/Resources/img/logo.png" 
+                 alt="Logo" 
+                 style="height: 25px; width: auto;" 
+                 class="me-2">
+        </a>
+
+        <!-- Botón responsive para colapsar menú -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContenido">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- INICIO -->
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">
+                        <i class="fas fa-home me-1"></i>Inicio
+                    </a>
+                </li>
+
+                <!-- VENTAS -->
+                <c:if test="${usuarioLogueado.rol.nombre == 'Superadmin' || 
+                              usuarioLogueado.rol.nombre == 'Administrador' || 
+                              usuarioLogueado.rol.nombre == 'Vendedor'}">
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                              <i class="fas fa-cash-register me-1" style="color: #FF5733;"></i>Ventas
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li>
+                                  <a class="dropdown-item" href="${pageContext.request.contextPath}/SrvVenta">Registrar Venta</a>
+                              </li>
+                          </ul>
+                      </li>
+                </c:if>
+
+                <!-- CLIENTES -->
+                <c:if test="${usuarioLogueado.rol.nombre == 'Superadmin' || 
+                              usuarioLogueado.rol.nombre == 'Administrador' || 
+                              usuarioLogueado.rol.nombre == 'Vendedor'}">
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                              <i class="fas fa-users me-1"></i>Clientes
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li>
+                                  <a class="dropdown-item" href="${pageContext.request.contextPath}/cliente">Registrar Cliente</a>
+                              </li>
+                          </ul>
+                      </li>
+                </c:if>
+
+                <!-- PRODUCTOS -->
+                <c:if test="${usuarioLogueado.rol.nombre == 'Superadmin' || 
+                              usuarioLogueado.rol.nombre == 'Administrador'}">
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                              <i class="fas fa-box-open me-1"></i>Productos
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li>
+                                  <a class="dropdown-item" href="${pageContext.request.contextPath}/producto">Producto</a>
+
+                              </li>
+                          </ul>
+                      </li>
+                </c:if>
+
+                <!-- INVENTARIO -->
+                <c:choose>
+                    <%-- Solo Vendedor: acceso solo a Control de stock --%>
+                    <!--<c:when test="${usuarioLogueado.rol.nombre == 'Vendedor'}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/SrvStock?accion=listar">
+                                <i class="fas fa-warehouse me-1"></i>Control de stock
+                            </a>
+                        </li>
+                    </c:when>-->
+
+                    <%-- Otros roles: menú completo de Inventario --%>
+                    <c:when test="${usuarioLogueado.rol.nombre == 'Superadmin' || 
+                                    usuarioLogueado.rol.nombre == 'Administrador' || 
+                                    usuarioLogueado.rol.nombre == 'Almacenero'}">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-warehouse me-1"></i>Inventario
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/SrvStock?accion=listar">Control de stock</a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/ingresos.jsp">Ingresos</a>
+                                    </li>
+                                </ul>
+                            </li>
+                    </c:when>
+                </c:choose>
+
+                <!-- INFORMES -->
+                <c:if test="${usuarioLogueado.rol.nombre == 'Superadmin' || 
+                              usuarioLogueado.rol.nombre == 'Administrador'}">
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                              <i class="fas fa-chart-line me-1"></i>Informes
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li>
+                                  <a class="dropdown-item" href="${pageContext.request.contextPath}/SrvInforme">Informe de Ventas</a>
+                              </li>
+                          </ul>
+                      </li>
+                </c:if>
+
+                <!-- CONFIGURACIÓN (Usuarios y roles) -->
+                <c:if test="${usuarioLogueado.rol.nombre == 'Superadmin' || 
+                              usuarioLogueado.rol.nombre == 'Administrador'}">
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                              <i class="fas fa-cogs me-1"></i>Configuración
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li>
+                                  <a class="dropdown-item" href="${pageContext.request.contextPath}/SrvVendedor?accion=listar">Usuarios y roles</a>
+                              </li>
+                          </ul>
+                      </li>
+                </c:if>
+            </ul>
+
+            <!-- Usuario logueado y botón de cerrar sesión -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item d-flex align-items-center">
+                    <c:if test="${not empty sessionScope.usuarioLogueado}">
+                        <span class="navbar-text me-3">
+                            ¡Hola, <strong>${usuarioLogueado.nombre}</strong> (${usuarioLogueado.rol.nombre})!
+                        </span>
+                    </c:if>
+                    <a href="SrvLogin?accion=logout" class="btn btn-sm btn-outline-light">Cerrar sesión</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
