@@ -25,7 +25,7 @@ public class ClienteServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/jsp/ClienteMain.jsp").forward(request, response);
     }
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
